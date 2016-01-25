@@ -1,0 +1,26 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+.wrapper {
+
+}
+h4 {
+    margin: 0.5em 0.75em;
+}
+.person-data,
+.address, .btn-submit {
+    max-width: 30em;
+    margin: 0.5em 1em;
+    border: 1px solid silver;
+    padding: 1em 1em 0 1em;
+}
+div>p {
+    /*margin-bottom: 0.75em;*/
+    color: #0d81b4;
+}
+label {
+    color: green;
+    /*display: inline-block;
+    width: 10em;*/
+}

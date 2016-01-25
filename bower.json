@@ -1,0 +1,16 @@
+{
+  "name": "set_profile",
+  "authors": [
+    "David Porokhovnik <dporokhovnik@gmail.com>"
+  ],
+  "description": "",
+  "main": "profile_form_2.html",
+  "moduleType": [
+    "globals"
+  ],
+  "license": "MIT",
+  "homepage": "",
+  "dependencies": {
+    "jquery": "~2.1.4"
+  }
+}

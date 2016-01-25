@@ -1,0 +1,16 @@
+{
+  "first_name": "Vasya",
+  "last_name": "Smith",
+  "birthday": "01.01.1970",
+  "gender": "male",
+  "mob_phone": 5557733,
+  "work_phone": 3335577,
+  "occupation": "boss",
+  "education": "doctoral",
+  "region1": "center",
+  "city1": "jerusalem",
+  "street1": "hanavi",
+  "build1": "15",
+  "apartment1": "32",
+  "home_address1": false
+}
