@@ -29,9 +29,12 @@
 
 <div class="wrapper" data-ng-controller="profileController">
     <form role="form" class="form-horizontal" name="profileData" action="http://localhost:8080/recievedata" method="post" novalidate>
-        <h4>Please fill out these fields</h4>
 
-        <div class="person-data" id="person_data">
+        <h3>Please fill out these fields</h3>
+        <h4>Personal data</h4>
+
+        <div class="personal-data" id="person_data">
+
             <div class="form-group">
                 <label for="first_name" class="col-sm-4 control-label">First Name: </label>
                 <div class="col-sm-8">
@@ -106,56 +109,71 @@
                     </select>
                 </div>
             </div>
-        </div>
-        <span>{{data}}</span>
-        <div class="address" id="address_bar">
-            <div id="address1">
-                <div class="form-group">
-                    <label for="region1" class="col-sm-4 control-label">Region: </label>
-                    <div class="col-sm-8">
-                        <input type="text" class="form-control" id="region1" data-ng-model="data.region1">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="city1" class="col-sm-4 control-label">City: </label>
-                    <div class="col-sm-8">
-                        <input type="text" class="form-control" id="city1" data-ng-model="data.city1">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="street1" class="col-sm-4 control-label">Street: </label>
-                    <div class="col-sm-8">
-                        <input type="text" class="form-control" id="street1" data-ng-model="data.street1">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="build1" class="col-sm-4 control-label">Build: </label>
-                    <div class="col-sm-8">
-                        <input type="text" class="form-control" id="build1" data-ng-model="data.build1">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="apartment1" class="col-sm-4 control-label">Apartment: </label>
-                    <div class="col-sm-8">
-                        <input type="text" class="form-control" id="apartment1" data-ng-model="data.apartment1">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-sm-offset-4 col-sm-8">
-                        <div class="checkbox">
-                            <label for="home_address1">
-                            <input type="checkbox" id="home_address1" data-ng-model="data.home_address1">Home address
-                            </label>
+
+        </div> <!-- person_data-end -->
+
+        <span>{{data}}</span> <!-- test-string -->
+
+        <h4>Address</h4>
+
+        <div class="address">
+
+            <div id="address_bar">
+
+                <div id="address1">
+
+                    <div class="form-group">
+                        <label for="region1" class="col-sm-4 control-label">Region: </label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" id="region1" data-ng-model="data.region1">
                         </div>
                     </div>
+                    <div class="form-group">
+                        <label for="city1" class="col-sm-4 control-label">City: </label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" id="city1" data-ng-model="data.city1">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="street1" class="col-sm-4 control-label">Street: </label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" id="street1" data-ng-model="data.street1">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="build1" class="col-sm-4 control-label">Build: </label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" id="build1" data-ng-model="data.build1">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="apartment1" class="col-sm-4 control-label">Apartment: </label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" id="apartment1" data-ng-model="data.apartment1">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-offset-4 col-sm-8">
+                            <div class="checkbox">
+                                <label for="home_address1">
+                                <input type="checkbox" id="home_address1" data-ng-model="data.home_address1">Home address
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
-            </div>
+
+            </div> <!-- address_bar-end -->
+
             <div id="btn_add_address" align="center">
                 <div class="form-group">
-                    <button type="button"  class="btn btn-default btn-sm" id="add_address" onclick="cloneAddr()"> + add address</button>
+                    <button type="button"  class="btn btn-default btn-sm" id="add_address" onclick="AddAddress()"> + add address</button>
                 </div>
             </div>
-        </div>
+
+        </div> <!-- .address div-end -->
+
         <div class="btn-submit" id="submit" align="center">
             <div class="form-group">
                 <button type="submit" class="btn btn-success">submit</button>
@@ -165,20 +183,50 @@
     </form>
 </div> <!-- wrapper-end -->
 
-<footer>
-
-</footer>
-
 <script>
 
     var count = 1;
 
-    function addNewAddress(){
+    var AddAddress = function(){
+
         count++;
-        var div = document.createDocumentFragment("div");
-        div.innerHTML = "";
+        var address = new Array("region", "city", "street", "build", "apartment");
+
+        var newDiv = document.createElement("div");
+        newDiv.setAttribute("id","address"+count);
+
+        for(var i = 0; i < address.length; i++) {
+
+            var formGroupDiv = document.createElement("div");
+            formGroupDiv.className = "form-group";
+            newDiv.appendChild(formGroupDiv);
+
+            var label = document.createElement("label");
+            label.setAttribute("for", address[i]+count);
+            label.className = "col-sm-4 control-label";
+            label.innerHTML = address[i] + " " + count + ": ";
+            formGroupDiv.appendChild(label);
+
+            var colDiv = document.createElement("div");
+            colDiv.className = "col-sm-8";
+            formGroupDiv.appendChild(colDiv);
+
+            var input = document.createElement("input");
+            input.setAttribute("type","text");
+            input.setAttribute("id", address[i]+count);
+            input.className = "form-control";
+            colDiv.appendChild(input);
+        }
+        
+        var addressBar = document.getElementById("address_bar");
+        addressBar.appendChild(newDiv);
+
     }
 </script>
+
+<footer>
+
+</footer>
 
 <script> <!-- AngularScript-start -->
 
@@ -212,50 +260,6 @@
     })
 
 </script> <!-- AngularScript-end -->
-
-<script> <!-- jQueryScript-start -->
-
-    /*$(document).ready(function(){
-        $("#add_address").click(function() {
-            count++;
-            $("<p>").attr("id","addr"+count).text(count+"th address").append("<br>").appendTo("#address_bar");
-            $("#address1").clone().attr("id","#address"+count).appendTo("#address_bar");
-
-        });
-    });*/
-
-        var count=1;
-    function cloneAddr() {
-        count++;
-        $("<p>").attr("id","addr"+count).text(count+"th address").append("<br>").append(
-                $("<label>").text("Region: ").append("</label>").append(
-                        $("<input type='text'>").attr("id","region"+count)
-                )
-        .append("<br>").append(
-                $("<label>").text("City: ").append("</label>").append(
-                        $("<input type='text'>").attr("id","city"+count)
-                )
-        ).append("<br>").append(
-                $("<label>").text("Street: ").append("</label>").append(
-                        $("<input type='text'>").attr("id","street"+count)
-                )
-        ).append("<br>").append(
-                $("<label>").text("Build: ").append("</label>").append(
-                        $("<input type='text'>").attr("id","build"+count)
-                )
-        ).append("<br>").append(
-                $("<label>").text("Apartment: ").append("</label>").append(
-                        $("<input type='text'>").attr("id","apartment"+count)
-                )
-        ).append("<br>").append(
-                $("<label>").text("Home address: ").append("</label>").append(
-                        $("<input type='checkbox'>").attr("id","home_address"+count)
-                )
-        )
-                .appendTo("#address_bar"));
-    }
-
-</script> <!-- jQueryScript-end -->
 
 </body>
 </html>
