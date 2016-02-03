@@ -183,6 +183,43 @@
     </form>
 </div> <!-- wrapper-end -->
 
+<footer>
+
+</footer>
+
+<script> <!-- AngularScript-start -->
+
+    var app=angular.module("setProfile",[]);
+    app.controller("profileController",function($scope,$http){
+        $scope.data={};
+        /*$scope.answer={};
+         $scope.sendData=function(data,profileData){
+         if(profileData.$valid){
+
+         $http.post(" ",data).success(function(answ) {
+         $scope.answer=answ;
+         });
+         }
+         }*/
+        $http.get("Person.json").success(function(response){
+            $scope.data=response;
+        }).error(function(){
+            alert("Error");
+        });
+        $scope.add = function() {
+            $scope.data.push({
+                "region2": "center",
+                "city2": "jerusalem",
+                "street2": "hanavi",
+                "build2": "15",
+                "apartment2": "32",
+                "home_address2": false
+            });
+        };
+    })
+
+</script> <!-- AngularScript-end -->
+
 <script>
 
     var count = 1;
@@ -217,49 +254,34 @@
             input.className = "form-control";
             colDiv.appendChild(input);
         }
-        
+
+        var formGroupDiv = document.createElement("div");
+        formGroupDiv.className = "form-group";
+        newDiv.appendChild(formGroupDiv);
+
+        var colDiv = document.createElement("div");
+        colDiv.className = "col-sm-offset-4 col-sm-8";
+        formGroupDiv.appendChild(colDiv);
+
+        var checkBoxDiv = document.createElement("div");
+        checkBoxDiv.className = "checkbox";
+        colDiv.appendChild(checkBoxDiv);
+
+        var label = document.createElement("label");
+        label.setAttribute("for", "home_address"+count);
+        checkBoxDiv.appendChild(label);
+        label.innerHTML = "<input type=\"checkbox\" id=\"home_address1\" data-ng-model=\"data.home_address\"+count>Home address";
+        /*var checkbox = document.createElement("input");
+         checkbox.setAttribute("type", "checkbox");
+         checkbox.setAttribute("id", "home_address"+count);
+         label.appendChild(checkbox);*/
+
         var addressBar = document.getElementById("address_bar");
         addressBar.appendChild(newDiv);
 
     }
+
 </script>
-
-<footer>
-
-</footer>
-
-<script> <!-- AngularScript-start -->
-
-    var app=angular.module("setProfile",[]);
-    app.controller("profileController",function($scope,$http){
-        $scope.data={};
-        /*$scope.answer={};
-         $scope.sendData=function(data,profileData){
-         if(profileData.$valid){
-
-         $http.post(" ",data).success(function(answ) {
-         $scope.answer=answ;
-         });
-         }
-         }*/
-        $http.get("Person.json").success(function(response){
-            $scope.data=response;
-        }).error(function(){
-            alert("Error");
-        });
-        $scope.addAddress = function() {
-            $scope.data.push({
-                "region2": "center",
-                "city2": "jerusalem",
-                "street2": "hanavi",
-                "build2": "15",
-                "apartment2": "32",
-                "home_address2": false
-            });
-        };
-    })
-
-</script> <!-- AngularScript-end -->
 
 </body>
 </html>
